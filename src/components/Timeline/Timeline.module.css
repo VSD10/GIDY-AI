@@ -1,0 +1,139 @@
+.timelineCard {
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.addBtn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.addBtn:hover {
+    color: var(--text-primary);
+}
+
+.timelineList {
+    display: flex;
+    flex-direction: column;
+}
+
+.timelineItem {
+    display: flex;
+    gap: 1.25rem;
+    position: relative;
+}
+
+.timelineItem:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.iconCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48px;
+    flex-shrink: 0;
+}
+
+.companyIcon {
+    width: 48px;
+    height: 48px;
+    background-color: color-mix(in srgb, var(--accent-color) 5%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent-color) 20%, transparent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.line {
+    width: 1px;
+    flex-grow: 1;
+    background-color: var(--border-color);
+    min-height: 20px;
+}
+
+.timelineItem:last-child .line {
+    display: none;
+}
+
+.contentCol {
+    flex-grow: 1;
+    padding-bottom: 0.5rem;
+}
+
+.itemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.25rem;
+}
+
+.itemTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.moreBtn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0 0.5rem;
+}
+
+.itemSubtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.itemDates {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.emptyPrompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.emptyPrompt:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background-color: color-mix(in srgb, var(--accent-color) 5%, transparent);
+}

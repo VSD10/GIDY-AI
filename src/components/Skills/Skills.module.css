@@ -1,0 +1,124 @@
+.skillsCard {
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.addBtn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.addBtn:hover {
+    color: var(--text-primary);
+}
+
+.skillsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.skillChip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background-color: transparent;
+    padding: 0.25rem 0.25rem 0.25rem 1rem;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.skillChip:hover {
+    border-color: var(--text-secondary);
+}
+
+.skillName {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.endorseBtn {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+.endorseBtn:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.endorseBtn.hasEndorsements {
+    width: auto;
+    border-radius: 12px;
+    padding: 0 0.5rem;
+    gap: 0.25rem;
+    background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+    color: var(--accent-color);
+}
+
+.endorseBtn.hasEndorsements:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.plusIcon {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.endorseCount {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Endorsement animation */
+.endorsing {
+    animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

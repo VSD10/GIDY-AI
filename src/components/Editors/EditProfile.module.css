@@ -1,0 +1,509 @@
+/* ========== EDIT PROFILE — SPACIOUS REDESIGN ========== */
+
+/* ---- Section Layout ---- */
+.section {
+    margin-bottom: 1.75rem;
+}
+
+.sectionTitle {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 0.65rem;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.65rem;
+}
+
+.sectionHeader .sectionTitle {
+    margin-bottom: 0;
+}
+
+/* ---- Media Section (Banner + Avatar) ---- */
+.mediaSection {
+    margin-bottom: 1.75rem;
+}
+
+.mediaSection .sectionTitle {
+    margin-bottom: 0.5rem;
+}
+
+.bannerUpload {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.bannerUpload:hover {
+    border-color: var(--accent-color);
+    background: rgba(0, 191, 165, 0.03);
+}
+
+.bannerPreviewImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bannerPlaceholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.bannerOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    opacity: 0;
+    transition: opacity 0.25s;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.bannerUpload:hover .bannerOverlay {
+    opacity: 1;
+}
+
+.hint {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* Avatar */
+.avatarUploadRow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: -30px;
+    margin-left: 1.25rem;
+    position: relative;
+    z-index: 2;
+}
+
+.avatarUpload {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.avatarImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--bg-color);
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+.avatarPlaceholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--bg-color);
+    box-shadow: 0 0 0 2px var(--accent-color);
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.avatarBadge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bg-color);
+}
+
+.avatarHint {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    padding-top: 18px;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+/* ---- Field Grid ---- */
+.fieldGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.field input,
+.section textarea {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: 0.85rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.field input:focus,
+.section textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(0, 191, 165, 0.1);
+}
+
+/* ---- AI Button ---- */
+.aiBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.aiBtn:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+.aiBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.pulseArea {
+    border-color: #764ba2 !important;
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.1);
+    }
+
+    to {
+        box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.3);
+    }
+}
+
+/* ---- Resume Upload ---- */
+.resumeUpload {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.resumeUpload:hover {
+    border-color: var(--accent-color);
+    background: rgba(0, 191, 165, 0.03);
+}
+
+.resumeIcon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: rgba(0, 191, 165, 0.08);
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.resumeText {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+
+.resumeUploaded {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* ---- Social Links ---- */
+.addLinkBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: none;
+    border: 1px dashed var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.22rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.addLinkBtn:hover {
+    background: rgba(0, 191, 165, 0.08);
+    border-style: solid;
+}
+
+.linkList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.linkItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    animation: fadeSlide 0.3s;
+}
+
+.linkPlatform {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    color: var(--text-primary);
+    flex-shrink: 0;
+}
+
+.linkUrl {
+    flex: 1;
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.linkUrl:hover {
+    text-decoration: underline;
+}
+
+.linkRemoveBtn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.15rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.4;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+.linkRemoveBtn:hover {
+    opacity: 1;
+    color: #f85149;
+}
+
+.noLinks {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0;
+}
+
+.addLinkForm {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    animation: fadeSlide 0.3s;
+}
+
+.platformSelect {
+    padding: 0.45rem 0.5rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 0.78rem;
+    font-family: var(--font-family);
+    cursor: pointer;
+}
+
+.platformSelect:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.linkInput {
+    flex: 1;
+    padding: 0.45rem 0.6rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: 0.78rem;
+}
+
+.linkInput:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(0, 191, 165, 0.1);
+}
+
+.addLinkSaveBtn {
+    background: var(--accent-color);
+    border: none;
+    color: #fff;
+    padding: 0.45rem 0.85rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.addLinkSaveBtn:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.addLinkSaveBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ---- Footer ---- */
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.cancelBtn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cancelBtn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.saveBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--accent-color);
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.saveBtn:hover:not(:disabled) {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.saveBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 500px) {
+    .fieldGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .addLinkForm {
+        flex-direction: column;
+    }
+}

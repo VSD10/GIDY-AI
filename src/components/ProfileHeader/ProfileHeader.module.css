@@ -1,0 +1,554 @@
+/* ========== UNIFIED HERO — PROFILE + CAREER VISION ========== */
+
+.hero {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 2rem;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+        0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* ==================== ANIMATED BANNER ==================== */
+.banner {
+    height: 160px;
+    position: relative;
+    background: linear-gradient(140deg, #0a0f1a 0%, #0d2137 35%, #0f3d3e 60%, #1a1a3e 100%);
+    overflow: hidden;
+}
+
+.bannerImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bannerMesh {
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 40px,
+            rgba(255, 255, 255, 0.015) 40px,
+            rgba(255, 255, 255, 0.015) 41px),
+        repeating-linear-gradient(90deg,
+            transparent,
+            transparent 40px,
+            rgba(255, 255, 255, 0.015) 40px,
+            rgba(255, 255, 255, 0.015) 41px);
+    opacity: 0.6;
+}
+
+/* Floating orbs */
+.bannerOrb1 {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 191, 165, 0.25) 0%, transparent 70%);
+    top: -60px;
+    left: 10%;
+    animation: orbFloat1 10s ease-in-out infinite;
+    filter: blur(30px);
+}
+
+.bannerOrb2 {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
+    top: -20px;
+    right: 15%;
+    animation: orbFloat2 12s ease-in-out infinite;
+    filter: blur(25px);
+}
+
+.bannerOrb3 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+    bottom: 10px;
+    right: 35%;
+    animation: orbFloat3 8s ease-in-out infinite;
+    filter: blur(20px);
+}
+
+@keyframes orbFloat1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, 15px) scale(1.15);
+    }
+}
+
+@keyframes orbFloat2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-20px, 20px) scale(1.1);
+    }
+}
+
+@keyframes orbFloat3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(15px, -10px) scale(1.2);
+    }
+}
+
+/* Edit button on banner */
+.editBtn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0.4rem 0.85rem;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.editBtn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== IDENTITY SECTION ==================== */
+.identitySection {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0 2rem;
+    margin-top: -48px;
+    position: relative;
+    z-index: 5;
+}
+
+/* Avatar */
+.avatarArea {
+    flex-shrink: 0;
+}
+
+.avatarRing {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    padding: 3px;
+    background: conic-gradient(from 0deg, var(--card-bg), var(--accent-color), var(--card-bg), var(--accent-color));
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    animation: ringGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes ringGlow {
+    from {
+        box-shadow: 0 4px 15px var(--accent-color);
+        opacity: 0.8;
+    }
+
+    to {
+        box-shadow: 0 4px 30px var(--accent-color);
+        opacity: 1;
+    }
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--card-bg);
+}
+
+.avatarFallback {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--card-bg);
+    background: linear-gradient(135deg, #667eea, #8b5cf6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.statusDot {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 14px;
+    height: 14px;
+    background: #22c55e;
+    border: 3px solid var(--card-bg);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+/* Identity Content */
+.identityContent {
+    flex: 1;
+    padding-top: 52px;
+}
+
+.topRow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.nameBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.name {
+    font-size: 1.65rem;
+    font-weight: 750;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+}
+
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    background: rgba(0, 191, 165, 0.08);
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 191, 165, 0.12);
+    letter-spacing: 0.01em;
+}
+
+.location {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+.socialBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-secondary);
+    transition: all 0.25s;
+    cursor: pointer;
+}
+
+.socialBtn:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+    background: rgba(0, 191, 165, 0.06);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 191, 165, 0.12);
+}
+
+.resumeBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.42rem 1rem;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent-color), #667eea);
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.resumeBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 191, 165, 0.3);
+    color: #fff;
+}
+
+/* Bio */
+.bio {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+    padding-bottom: 1.25rem;
+    max-width: 780px;
+}
+
+/* ==================== BOTTOM STRIP — CAREER + STATS ==================== */
+.bottomStrip {
+    display: flex;
+    align-items: stretch;
+    border-top: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.013);
+}
+
+/* Career Vision Block */
+.visionBlock {
+    flex: 1;
+    padding: 1.25rem 2rem;
+    min-width: 0;
+}
+
+.visionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
+.visionLabel {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.editSmallBtn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.editSmallBtn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: rgba(0, 191, 165, 0.06);
+}
+
+.visionTitle {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.75rem;
+}
+
+.visionGrid {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.visionItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.visionItemText {
+    display: flex;
+    flex-direction: column;
+}
+
+.visionItemLabel {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+}
+
+.visionItemValue {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Strip Divider */
+.stripDivider {
+    width: 1px;
+    background: var(--border-color);
+    align-self: stretch;
+}
+
+/* Stats Block */
+.statsBlock {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 2rem;
+    flex-shrink: 0;
+}
+
+.statCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    min-width: 55px;
+}
+
+.statIcon {
+    line-height: 0;
+}
+
+.statValue {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.15;
+}
+
+.statLabel {
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.rewardsLink {
+    font-size: 0.72rem;
+    color: #f59e0b;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: color 0.2s;
+    align-self: center;
+    border-left: 1px solid var(--border-color);
+    padding-left: 1rem;
+}
+
+.rewardsLink:hover {
+    color: #fbbf24;
+    text-decoration: none;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 900px) {
+    .bottomStrip {
+        flex-direction: column;
+    }
+
+    .stripDivider {
+        width: 100%;
+        height: 1px;
+    }
+
+    .statsBlock {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 640px) {
+    .banner {
+        height: 120px;
+    }
+
+    .identitySection {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: -40px;
+        padding: 0 1.25rem;
+    }
+
+    .identityContent {
+        padding-top: 0.5rem;
+    }
+
+    .topRow {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nameBlock {
+        align-items: center;
+    }
+
+    .metaRow {
+        justify-content: center;
+    }
+
+    .actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .bio {
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    .visionBlock {
+        padding: 1rem 1.25rem;
+    }
+
+    .visionGrid {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .statsBlock {
+        padding: 1rem 1.25rem;
+    }
+}

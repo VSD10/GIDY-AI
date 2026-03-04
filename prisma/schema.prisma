@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id            String         @id @default(uuid())
+  name          String
+  tag           String?        // e.g. "Final-Year Student"
+  bio           String?
+  email         String?
+  location      String?
+  avatarUrl     String?
+  bannerUrl     String?        // profile banner image
+  resumeUrl     String?
+  careerVision  String?        // e.g. "Technical Founder"
+  currentRole   String?        // e.g. "Entry Level Professional"
+  growthSpace   String?        // e.g. "Artificial Intelligence (AI)"
+  inspiredBy    String?        // e.g. "Elon Musk"
+  league        String?        @default("Bronze")
+  rank          Int?           @default(0)
+  points        Int?           @default(0)
+  theme         String?        @default("dark")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  skills        Skill[]
+  experiences   Experience[]
+  educations    Education[]
+  certifications Certification[]
+  socialLinks   SocialLink[]
+}
+
+model Skill {
+  id            String        @id @default(uuid())
+  name          String
+  endorsements  Int           @default(0)
+  profileId     String
+  profile       Profile       @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  endorseRecords Endorsement[]
+}
+
+model Experience {
+  id            String    @id @default(uuid())
+  title         String
+  company       String
+  location      String?
+  startDate     String
+  endDate       String?
+  profileId     String
+  profile       Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Education {
+  id            String    @id @default(uuid())
+  degree        String
+  institution   String
+  location      String?
+  startDate     String
+  endDate       String?
+  profileId     String
+  profile       Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Certification {
+  id            String    @id @default(uuid())
+  name          String
+  issuer        String?
+  date          String?
+  profileId     String
+  profile       Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model SocialLink {
+  id            String    @id @default(uuid())
+  platform      String
+  url           String
+  profileId     String
+  profile       Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Endorsement {
+  id            String    @id @default(uuid())
+  endorserName  String
+  skillId       String
+  skill         Skill     @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+}
