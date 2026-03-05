@@ -29,6 +29,9 @@ export default function EditProfile({ profile, onClose, onSave }) {
     const [newLink, setNewLink] = useState({ platform: 'github', url: '' });
     const [isGeneratingBio, setIsGeneratingBio] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
+    const [uploadingBanner, setUploadingBanner] = useState(false);
+    const [uploadingResume, setUploadingResume] = useState(false);
     const [avatarPreview, setAvatarPreview] = useState(profile?.avatarUrl || '');
     const [bannerPreview, setBannerPreview] = useState(profile?.bannerUrl || '');
     const avatarInputRef = useRef(null);
@@ -46,30 +49,51 @@ export default function EditProfile({ profile, onClose, onSave }) {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleImageUpload = (e, type) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            if (type === 'avatar') {
-                setAvatarPreview(reader.result);
-                setFormData(prev => ({ ...prev, avatarUrl: reader.result }));
-            } else if (type === 'banner') {
-                setBannerPreview(reader.result);
-                setFormData(prev => ({ ...prev, bannerUrl: reader.result }));
-            }
-        };
-        reader.readAsDataURL(file);
+    const uploadFile = async (file, folder) => {
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('folder', folder);
+        const res = await fetch('/api/upload', { method: 'POST', body: fd });
+        if (!res.ok) throw new Error('Upload failed');
+        const { url } = await res.json();
+        return url;
     };
 
-    const handleResumeUpload = (e) => {
+    const handleImageUpload = async (e, type) => {
         const file = e.target.files[0];
         if (!file) return;
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setFormData(prev => ({ ...prev, resumeUrl: reader.result }));
-        };
-        reader.readAsDataURL(file);
+        // Show local preview immediately
+        const localUrl = URL.createObjectURL(file);
+        if (type === 'avatar') {
+            setAvatarPreview(localUrl);
+            setUploadingAvatar(true);
+            try {
+                const url = await uploadFile(file, 'avatars');
+                setFormData(prev => ({ ...prev, avatarUrl: url }));
+                setAvatarPreview(url);
+            } catch (e) { console.error(e); }
+            finally { setUploadingAvatar(false); }
+        } else if (type === 'banner') {
+            setBannerPreview(localUrl);
+            setUploadingBanner(true);
+            try {
+                const url = await uploadFile(file, 'banners');
+                setFormData(prev => ({ ...prev, bannerUrl: url }));
+                setBannerPreview(url);
+            } catch (e) { console.error(e); }
+            finally { setUploadingBanner(false); }
+        }
+    };
+
+    const handleResumeUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        setUploadingResume(true);
+        try {
+            const url = await uploadFile(file, 'resumes');
+            setFormData(prev => ({ ...prev, resumeUrl: url }));
+        } catch (e) { console.error(e); }
+        finally { setUploadingResume(false); }
     };
 
     const handleGenerateBio = async () => {
@@ -247,7 +271,7 @@ export default function EditProfile({ profile, onClose, onSave }) {
                             </>
                         ) : (
                             <>
-                                <span>Upload your resume</span>
+                                <span>{uploadingResume ? 'Uploading...' : 'Upload your resume'}</span>
                                 <span className={styles.hint}>PDF, DOC, or DOCX — Max 5MB</span>
                             </>
                         )}
