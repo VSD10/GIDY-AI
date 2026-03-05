@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -26,6 +26,7 @@ model Profile {
   rank          Int?           @default(0)
   points        Int?           @default(0)
   theme         String?        @default("dark")
+  username      String?        @unique  // e.g. "vsdharshan" → /u/vsdharshan
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 

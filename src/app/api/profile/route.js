@@ -56,6 +56,9 @@ export async function PUT(request) {
         }
         const profileId = profiles[0].id;
 
+        // Sanitize username: treat empty string as null (avoids unique constraint errors)
+        const username = data.username?.trim() || null;
+
         const updatedProfile = await prisma.profile.update({
             where: { id: profileId },
             data: {
@@ -72,6 +75,7 @@ export async function PUT(request) {
                 growthSpace: data.growthSpace,
                 inspiredBy: data.inspiredBy,
                 theme: data.theme,
+                username,
             },
             include: {
                 skills: true,
@@ -85,6 +89,9 @@ export async function PUT(request) {
         return NextResponse.json(updatedProfile);
     } catch (error) {
         console.error('Failed to update profile:', error);
-        return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });
+        return NextResponse.json(
+            { error: 'Failed to update profile', detail: error.message },
+            { status: 500 }
+        );
     }
 }

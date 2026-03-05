@@ -22,6 +22,7 @@ export default function EditProfile({ profile, onClose, onSave }) {
         avatarUrl: profile?.avatarUrl || '',
         bannerUrl: profile?.bannerUrl || '',
         resumeUrl: profile?.resumeUrl || '',
+        username: profile?.username || '',
     });
     const [socialLinks, setSocialLinks] = useState(profile?.socialLinks || []);
     const [showAddLink, setShowAddLink] = useState(false);
@@ -36,6 +37,12 @@ export default function EditProfile({ profile, onClose, onSave }) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        // Auto-slugify username: lowercase, no spaces, only alphanumeric + hyphens
+        if (name === 'username') {
+            const slug = value.toLowerCase().replace(/[^a-z0-9-]/g, '').replace(/--+/g, '-');
+            setFormData(prev => ({ ...prev, username: slug }));
+            return;
+        }
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
@@ -188,6 +195,23 @@ export default function EditProfile({ profile, onClose, onSave }) {
                     <div className={styles.field}>
                         <label>Email</label>
                         <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="your@email.com" />
+                    </div>
+                    <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
+                        <label style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                            Public Profile Username
+                            {formData.username && (
+                                <span style={{ fontSize: '0.75rem', color: 'var(--accent-color)', fontWeight: 500 }}>
+                                    🔗 gidy.io/u/{formData.username}
+                                </span>
+                            )}
+                        </label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            placeholder="e.g. vsdharshan"
+                        />
                     </div>
                 </div>
             </div>

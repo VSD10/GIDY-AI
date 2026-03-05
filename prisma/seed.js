@@ -29,6 +29,7 @@ async function main() {
             rank: 33,
             points: 50,
             theme: 'dark',
+            username: 'vsdharshan',
             skills: {
                 create: [
                     { name: 'JavaScript' },

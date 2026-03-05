@@ -10,6 +10,7 @@ import EditProfile from '@/components/Editors/EditProfile';
 import EditCareerVision from '@/components/Editors/EditCareerVision';
 import EditSkills from '@/components/Editors/EditSkills';
 import { EditExperience, EditEducation, EditCertification } from '@/components/Editors/EditTimeline';
+import ThemeTransitionOverlay from '@/components/ThemeTransition';
 import styles from './page.module.css';
 import { calculateCompletion, getPowerColor } from '@/lib/profileUtils';
 
@@ -18,6 +19,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState('dark');
   const [isPublicView, setIsPublicView] = useState(false);
+  const [themeTrigger, setThemeTrigger] = useState(null);
 
   // Each section has its own edit state
   const [editSection, setEditSection] = useState(null);
@@ -59,9 +61,17 @@ export default function ProfilePage() {
     }
   };
 
-  const toggleTheme = async () => {
+  const toggleTheme = async (event) => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
+
+    // Capture click position for the ripple origin
+    const x = event?.clientX ?? window.innerWidth / 2;
+    const y = event?.clientY ?? window.innerHeight / 2;
+    setThemeTrigger({ x, y, toTheme: newTheme, ts: Date.now() });
+
+    // Small delay so the overlay starts before CSS vars update
+    setTimeout(() => setTheme(newTheme), 120);
+
     if (profile) {
       try {
         await fetch('/api/profile', {
@@ -105,11 +115,13 @@ export default function ProfilePage() {
 
   return (
     <>
+      <ThemeTransitionOverlay trigger={themeTrigger} />
       <Navbar
         profileName={profile.name}
         avatarUrl={profile.avatarUrl}
         theme={theme}
         toggleTheme={toggleTheme}
+        username={profile.username}
       />
 
       <main className="container">
