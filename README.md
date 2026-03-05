@@ -1,5 +1,7 @@
 # Gidy - Next-Gen Developer Profile Platform 🚀
 
+**🌍 Live Demo:** [https://gidy-ai-plum.vercel.app/](https://gidy-ai-plum.vercel.app/)
+
 Gidy is a modern, stylish, and highly interactive developer portfolio platform built with Next.js. It allows developers to showcase their skills, experience, projects, and certifications through an elegant, customizable, and shareable public profile. 
 
 Built with performance and aesthetics in mind, Gidy acts as a "link-in-bio" on steroids specifically tailored for engineers, complete with dynamic themes, AI-powered bio generation, and real-time skill endorsements.
