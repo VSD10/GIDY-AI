@@ -64,6 +64,24 @@
     padding: 1.5rem;
 }
 
+/* Sleek Scrollbar for entire modal */
+.formContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.formContainer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.formContainer::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.formContainer::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 .formSection {
     margin-bottom: 2rem;
 }

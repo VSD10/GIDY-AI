@@ -2,7 +2,7 @@
 import { useState, useRef } from 'react';
 import EditModal from '@/components/EditModal';
 import styles from './EditProfile.module.css';
-import { IconCamera, IconSparkles, IconCheck, IconLink, IconGithub, IconLinkedin, IconGlobe, IconDownload, IconX } from '@/components/Icons';
+import { IconCamera, IconSparkles, IconCheck, IconLink, IconGithub, IconLinkedin, IconGlobe, IconDownload, IconX, IconTrash, IconCheckCircle } from '@/components/Icons';
 
 const PLATFORM_OPTIONS = [
     { value: 'github', label: 'GitHub', icon: <IconGithub size={14} />, placeholder: 'https://github.com/username' },
@@ -37,6 +37,17 @@ export default function EditProfile({ profile, onClose, onSave }) {
     const avatarInputRef = useRef(null);
     const bannerInputRef = useRef(null);
     const resumeInputRef = useRef(null);
+    const bioRef = useRef(null);
+
+    // Auto-resize bio textarea
+    const adjustBioHeight = () => {
+        if (bioRef.current) {
+            bioRef.current.style.height = 'auto';
+            // Set max-height to avoid growing infinitely out of the screen (e.g. 300px)
+            const scrollHeight = bioRef.current.scrollHeight;
+            bioRef.current.style.height = `${Math.min(scrollHeight, 400)}px`;
+        }
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -47,6 +58,11 @@ export default function EditProfile({ profile, onClose, onSave }) {
             return;
         }
         setFormData(prev => ({ ...prev, [name]: value }));
+
+        if (name === 'bio') {
+            // Give React a tick to update the DOM value before measuring
+            setTimeout(adjustBioHeight, 0);
+        }
     };
 
     const uploadFile = async (file, folder) => {
@@ -96,6 +112,10 @@ export default function EditProfile({ profile, onClose, onSave }) {
         finally { setUploadingResume(false); }
     };
 
+    const handleDeleteResume = () => {
+        setFormData(prev => ({ ...prev, resumeUrl: '' }));
+    };
+
     const handleGenerateBio = async () => {
         try {
             setIsGeneratingBio(true);
@@ -106,6 +126,7 @@ export default function EditProfile({ profile, onClose, onSave }) {
             }
             const data = await res.json();
             setFormData(prev => ({ ...prev, bio: data.bio }));
+            setTimeout(adjustBioHeight, 50); // Resize after AI paste
         } catch (err) {
             console.error(err);
             alert(`AI Generation Error: ${err.message}`);
@@ -249,35 +270,57 @@ export default function EditProfile({ profile, onClose, onSave }) {
                     </button>
                 </div>
                 <textarea
+                    ref={bioRef}
                     name="bio"
                     value={formData.bio}
                     onChange={handleChange}
-                    rows={3}
                     placeholder="A short summary about yourself..."
-                    className={isGeneratingBio ? styles.pulseArea : ''}
+                    className={`${isGeneratingBio ? styles.pulseArea : ''} ${styles.autoResizeBio}`}
                 />
             </div>
 
             {/* ===== SECTION 4: RESUME ===== */}
             <div className={styles.section}>
                 <label className={styles.sectionTitle}>Resume</label>
-                <div className={styles.resumeUpload} onClick={() => resumeInputRef.current?.click()}>
-                    <div className={styles.resumeIcon}><IconDownload size={20} /></div>
-                    <div className={styles.resumeText}>
-                        {formData.resumeUrl ? (
-                            <>
-                                <span className={styles.resumeUploaded}>Resume uploaded</span>
-                                <span className={styles.hint}>Click to replace</span>
-                            </>
-                        ) : (
-                            <>
-                                <span>{uploadingResume ? 'Uploading...' : 'Upload your resume'}</span>
-                                <span className={styles.hint}>PDF, DOC, or DOCX — Max 5MB</span>
-                            </>
-                        )}
+                {formData.resumeUrl ? (
+                    <div className={styles.resumeUploadedBlock}>
+                        <div className={styles.resumeInfo}>
+                            <div className={styles.resumeUploadedIcon}>
+                                <IconCheckCircle size={20} />
+                            </div>
+                            <div className={styles.resumeUploadedText}>
+                                <span className={styles.resumeTitle}>Resume Uploaded</span>
+                                <span className={styles.resumeSize}>Available on your public profile</span>
+                            </div>
+                        </div>
+                        <div className={styles.resumeActions}>
+                            <button
+                                type="button"
+                                className={`${styles.resumeBtn} ${styles.resumeReplace}`}
+                                onClick={() => resumeInputRef.current?.click()}
+                            >
+                                Replace
+                            </button>
+                            <button
+                                type="button"
+                                className={`${styles.resumeBtn} ${styles.resumeDelete}`}
+                                onClick={handleDeleteResume}
+                                title="Delete Resume"
+                            >
+                                <IconTrash size={14} />
+                            </button>
+                        </div>
                     </div>
-                    <input ref={resumeInputRef} type="file" accept=".pdf,.doc,.docx" onChange={handleResumeUpload} className={styles.hiddenInput} />
-                </div>
+                ) : (
+                    <div className={styles.resumeUpload} onClick={() => resumeInputRef.current?.click()}>
+                        <div className={styles.resumeIcon}><IconDownload size={20} /></div>
+                        <div className={styles.resumeText}>
+                            <span>{uploadingResume ? 'Uploading...' : 'Upload your resume'}</span>
+                            <span className={styles.hint}>PDF, DOC, or DOCX — Max 5MB</span>
+                        </div>
+                    </div>
+                )}
+                <input ref={resumeInputRef} type="file" accept=".pdf,.doc,.docx" onChange={handleResumeUpload} className={styles.hiddenInput} />
             </div>
 
             {/* ===== SECTION 5: SOCIAL LINKS ===== */}
